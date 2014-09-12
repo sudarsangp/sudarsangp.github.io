@@ -57,6 +57,20 @@ html
             strong Supervisor
 
       section(data-bespoke-state='emphatic')
+        h2 Master : Nimbus
+        ul.bullet
+          li responsible for distributing code around cluster
+          li assigns tasks to machines
+          li does monitoring for failures
+
+      section(data-bespoke-state='emphatic')
+        h2 Worker : Supervisor
+          ul.bullet
+            li listens for work assigned
+            li starts and stops worker processes
+            li executes subset of topology
+      
+      section(data-bespoke-state='emphatic')
         h4 This material will be updated regularly
 
     script(src='build/build.js')
