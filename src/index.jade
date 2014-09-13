@@ -71,6 +71,49 @@ html
           li executes subset of topology
       
       section(data-bespoke-state='emphatic')
+        h2 Zookeeper
+        h3.bullet maintains State
+        ul
+          li 
+            em storm cluster incredibly stable
+
+      section(data-bespoke-state='emphatic')
+        h2 Storm UI
+        ul.bullet
+          li provides detailed information about cluster and topology
+          li detailed spout and bolt component information
+
+      section(data-bespoke-state='emphatic')
+        h2 Components to run Storm
+        ul.bullet
+          li Zookeeper
+          li Nimbus
+          li Supervisor
+          li UI (to see detailed information)
+          li Storm (apache project)
+          li Jar file
+          li Topology
+
+      section(data-bespoke-state='emphatic')
+        p To run storm on local machine download storm and zookeeper
+        ul.bullet
+          li Run Zookeeper in Zookeeper directory (eg: zookeeper-3.4.6) using
+            pre
+              code.language-javascript.
+                .\bin\zkServer.cmd
+          li Run Storm Nimbus, Supervisor and UI in Storm Home directory
+            pre
+              code.language-javascript.
+                storm nimbus
+                storm supervisor
+                storm ui
+          li 
+            em Need to run zookeepr first before running nimbus, supervisor and ui
+          li 
+            <a href="http://ptgoetz.github.io/blog/2013/12/18/running-apache-storm-on-windows/">Running Apache Storm on Windows </a>
+          li Works on Windows 8.1
+
+      section(data-bespoke-state='emphatic')
         h4 This material will be updated regularly
 
     script(src='build/build.js')
