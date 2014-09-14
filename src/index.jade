@@ -114,6 +114,20 @@ html
           li Works on Windows 8.1
 
       section(data-bespoke-state='emphatic')
+        h3 Code from Storm Starter Word Count Topology
+        pre
+          code.language-javascript.
+            TopologyBuilder builder = new TopologyBuilder();
+
+            builder.setSpout("spout", new RandomSentenceSpout(), 5);
+
+            builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout");
+            builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));
+        ul.bullet
+          li creates a topologybuilder and sets the spouts and bolts
+          li we will analyze this code in the coming slides
+
+      section(data-bespoke-state='emphatic')
         h4 This material will be updated regularly
 
     script(src='build/build.js')
