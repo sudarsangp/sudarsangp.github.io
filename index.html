@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Storm Tutorial</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body>
+    <article>
+      <section data-bespoke-state="emphatic">
+        <h1>Storm Tutorial</h1>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Storm System</h2>
+        <h3 class="bullet">Process streams of data</h3>
+        <ul>
+          <li>Distributed</li>
+          <li>Reliable</li>
+          <li>Fault-tolerant</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2 class="bullet">Storm Basics</h2>
+        <ul>
+          <li>Spout : handles input stream of a storm cluster</li>
+          <li>Bolt : acquires data to process from spout</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Example Code</h2>
+        <pre><code class="language-javascript">builder.setSpout("spout", new RandomSentenceSpout(), 5);
+builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout"); </code></pre>
+        <ul class="bullet">
+          <li>Input stream sends data to spout (here named spout)</li>
+          <li>Bolt acquires the data from spout (here bold named split)</li>
+          <li>
+            <h6>Do not worry about syntax which will be explained later</h6>
+          </li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Topology</h2>
+        <h3 class="bullet">Graph of computation</h3>
+        <ul>
+          <li>Need to run topologies </li>
+          <li>Topologies process message forever</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h3>Two types of nodes</h3>
+        <h2>Master and Worker Node</h2>
+        <ul class="bullet">
+          <li>Master node runs daemon called <strong>Nimbus</strong></li>
+          <li>Worker node runs daemon called <strong>Supervisor</strong></li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Master : Nimbus</h2>
+        <ul class="bullet">
+          <li>responsible for distributing code around cluster</li>
+          <li>assigns tasks to machines</li>
+          <li>does monitoring for failures</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Worker : Supervisor</h2>
+        <ul class="bullet">
+          <li>listens for work assigned</li>
+          <li>starts and stops worker processes</li>
+          <li>executes subset of topology</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Zookeeper</h2>
+        <h3 class="bullet">maintains State</h3>
+        <ul>
+          <li><em>storm cluster incredibly stable</em></li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Storm UI</h2>
+        <ul class="bullet">
+          <li>provides detailed information about cluster and topology</li>
+          <li>detailed spout and bolt component information</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Components to run Storm</h2>
+        <ul class="bullet">
+          <li>Zookeeper</li>
+          <li>Nimbus</li>
+          <li>Supervisor</li>
+          <li>UI (to see detailed information)</li>
+          <li>Storm (apache project)</li>
+          <li>Jar file</li>
+          <li>Topology</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <p>To run storm on local machine download storm and zookeeper</p>
+        <ul class="bullet">
+          <li>Run Zookeeper in Zookeeper directory (eg: zookeeper-3.4.6) using
+            <pre><code class="language-javascript">.\bin\zkServer.cmd</code></pre>
+          </li>
+          <li>Run Storm Nimbus, Supervisor and UI in Storm Home directory
+            <pre><code class="language-javascript">storm nimbus
+storm supervisor
+storm ui</code></pre>
+          </li>
+          <li><em>Need to run zookeepr first before running nimbus, supervisor and ui</em></li>
+          <li><a href="http://ptgoetz.github.io/blog/2013/12/18/running-apache-storm-on-windows/">Running Apache Storm on Windows </a></li>
+          <li>Works on Windows 8.1</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h3>Code from Storm Starter Word Count Topology</h3>
+        <pre><code class="language-javascript">TopologyBuilder builder = new TopologyBuilder();
+
+builder.setSpout("spout", new RandomSentenceSpout(), 5);
+
+builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout");
+builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));</code></pre>
+        <ul class="bullet">
+          <li>creates a topologybuilder and sets the spouts and bolts</li>
+          <li>we will analyze this code in the coming slides</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Topology Builder</h2>
+        <ul class="bullet">
+          <li>exposes the Java API for specifying a topology for Storm to execute</li>
+          <li>eases the process of creating topologies</li>
+        </ul>
+        <ul>
+          <li>
+            <pre><code class="language-javascript">TopologyBuilder builder = new TopologyBuilder();</code></pre>
+          </li>
+          <li>creates a topology builder object</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h4>This material will be updated regularly</h4>
+      </section>
+    </article>
+    <script src="build/build.js"></script>
+  </body>
+</html>
