@@ -10,6 +10,7 @@
     <article>
       <section data-bespoke-state="emphatic">
         <h1>Storm Tutorial</h1>
+        <h3><a href="https://blogs.apache.org/foundation/entry/the_apache_software_foundation_announces64">Apache Storm becomes Top-Level Project</a></h3>
       </section>
       <section data-bespoke-state="emphatic">
         <h2>Storm System</h2>
@@ -21,10 +22,20 @@
         </ul>
       </section>
       <section data-bespoke-state="emphatic">
+        <h2>Streams and Tuples</h2>
+        <ul class="bullet">
+          <li>core abstraction in storm</li>
+          <li>unbounded sequence of tuples</li>
+          <li>tuple is a named list of values</li>
+          <li>filed in tuple can be object of any type</li>
+          <li>stream transformation done using spouts and bolts</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
         <h2 class="bullet">Storm Basics</h2>
         <ul>
-          <li>Spout : handles input stream of a storm cluster</li>
-          <li>Bolt : acquires data to process from spout</li>
+          <li>Spout : source of streams</li>
+          <li>Bolt : consumes input streams and can process and emit new streams</li>
         </ul>
       </section>
       <section data-bespoke-state="emphatic">
@@ -32,8 +43,8 @@
         <pre><code class="language-javascript">builder.setSpout("spout", new RandomSentenceSpout(), 5);
 builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout"); </code></pre>
         <ul class="bullet">
-          <li>Input stream sends data to spout (here named spout)</li>
-          <li>Bolt acquires the data from spout (here bold named split)</li>
+          <li>Input stream sends data to spout (here id is spout)</li>
+          <li>Bolt acquires the data from spout (here bolt id is split)</li>
           <li>
             <h6>Do not worry about syntax which will be explained later</h6>
           </li>
@@ -140,7 +151,62 @@ builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields
         </ul>
       </section>
       <section data-bespoke-state="emphatic">
-        <h4>This material will be updated regularly</h4>
+        <h3>Set Spout method</h3>
+        <ul class="bullet">
+          <li>defines a new spout in the topology</li>
+        </ul>
+        <ul>
+          <li>
+            <pre><code class="language-javascript">builder.setSpout("spout", new RandomSentenceSpout(), 5);</code></pre>
+          </li>
+          <li>
+            first argument is the 
+            <em> id </em> of the component
+          </li>
+          <li>second argument is the actual spout</li>
+          <li>
+            thrid argument is the number of taks assigned to execute the spout 
+            <em> parallelism hint </em>
+          </li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h3>Set Bolt method</h3>
+        <ul class="bullet">
+          <li>defines a new bolt in the topology</li>
+        </ul>
+        <ul>
+          <li>
+            <pre><code class="language-javascript">builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout");
+builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));</code></pre>
+          </li>
+          <li>
+            first argument is the 
+            <em> id </em> of the component
+          </li>
+          <li>second argument is the actual spout</li>
+          <li>
+            thrid argument is the number of taks assigned to execute the spout 
+            <em> parallelism hint </em>
+          </li>
+          <li>similar to spout</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h2>Stream Grouping</h2>
+        <ul class="bullet">
+          <li>tells storm how to send tuples between tasks</li>
+          <li>task is an instance of spout or bolt</li>
+          <li>
+            <h4>Shuffle Grouping : Tuples are randomly distributed across the bolt’s tasks in a way such that each bolt is guaranteed to get an equal number of tuples</h4>
+          </li>
+          <li>
+            <h4>Fields Grouping : Tuples with same 'id' field will go to same task</h4>
+          </li>
+        </ul>
+      </section>
+      <section data-bespoke-state="emphatic">
+        <h4>This material will be updated </h4>
       </section>
     </article>
     <script src="build/build.js"></script>
