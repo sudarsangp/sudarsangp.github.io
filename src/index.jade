@@ -13,6 +13,8 @@ html
 
       section(data-bespoke-state='emphatic')
         h1 Storm Tutorial
+        h3
+          <a href="https://blogs.apache.org/foundation/entry/the_apache_software_foundation_announces64">Apache Storm becomes Top-Level Project</a>
 
       section(data-bespoke-state='emphatic')
         h2 Storm System
@@ -23,10 +25,19 @@ html
           li Fault-tolerant
 
       section(data-bespoke-state='emphatic')
+        h2 Streams and Tuples
+        ul.bullet
+          li core abstraction in storm
+          li unbounded sequence of tuples
+          li tuple is a named list of values
+          li filed in tuple can be object of any type
+          li stream transformation done using spouts and bolts
+
+      section(data-bespoke-state='emphatic')
         h2.bullet Storm Basics
         ul
-          li Spout : handles input stream of a storm cluster
-          li Bolt : acquires data to process from spout
+          li Spout : source of streams
+          li Bolt : consumes input streams and can process and emit new streams
 
       section(data-bespoke-state='emphatic')
         h2 Example Code
@@ -35,8 +46,8 @@ html
             builder.setSpout("spout", new RandomSentenceSpout(), 5);
             builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout"); 
         ul.bullet
-          li Input stream sends data to spout (here named spout)
-          li Bolt acquires the data from spout (here bold named split)
+          li Input stream sends data to spout (here id is spout)
+          li Bolt acquires the data from spout (here bolt id is split)
           li 
             h6 Do not worry about syntax which will be explained later
 
@@ -138,8 +149,50 @@ html
               code.language-javascript.
                 TopologyBuilder builder = new TopologyBuilder();
           li creates a topology builder object
-          
+      
       section(data-bespoke-state='emphatic')
-        h4 This material will be updated regularly
+        h3 Set Spout method
+        ul.bullet
+          li defines a new spout in the topology
+        ul
+          li
+            pre
+              code.language-javascript.
+                  builder.setSpout("spout", new RandomSentenceSpout(), 5);
+          li first argument is the 
+            <em> id </em> of the component
+          li second argument is the actual spout
+          li thrid argument is the number of taks assigned to execute the spout 
+            <em> parallelism hint </em>
+
+      section(data-bespoke-state='emphatic')
+        h3 Set Bolt method
+        ul.bullet
+          li defines a new bolt in the topology
+        ul
+          li
+            pre
+              code.language-javascript.
+                builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout");
+                builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));
+          li first argument is the 
+            <em> id </em> of the component
+          li second argument is the actual spout
+          li thrid argument is the number of taks assigned to execute the spout 
+            <em> parallelism hint </em>
+          li similar to spout
+
+       section(data-bespoke-state='emphatic')
+        h2 Stream Grouping
+        ul.bullet
+          li tells storm how to send tuples between tasks
+          li task is an instance of spout or bolt
+          li
+            h4 Shuffle Grouping : Tuples are randomly distributed across the bolt’s tasks in a way such that each bolt is guaranteed to get an equal number of tuples
+          li
+            h4 Fields Grouping : Tuples with same 'id' field will go to same task
+     
+      section(data-bespoke-state='emphatic')
+        h4 This material will be updated 
 
     script(src='build/build.js')
