@@ -177,8 +177,8 @@ html
                 builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));
           li first argument is the 
             <em> id </em> of the component
-          li second argument is the actual spout
-          li thrid argument is the number of taks assigned to execute the spout 
+          li second argument is the actual bolt
+          li thrid argument is the number of taks assigned to execute the bolt 
             <em> parallelism hint </em>
           li similar to spout
 
